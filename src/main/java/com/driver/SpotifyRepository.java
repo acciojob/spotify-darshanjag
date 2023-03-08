@@ -232,7 +232,23 @@ public class SpotifyRepository {
             throw new Exception("User does not exist");
         }
 //        public HashMap<Playlist, List<User>> playlistListenerMap;
-
+        List<User> userslist = new ArrayList<>();
+        if(playlistListenerMap.containsKey(playlist)){
+            userslist=playlistListenerMap.get(playlist);
+        }
+        if(!userslist.contains(curUser))
+            userslist.add(curUser);
+        playlistListenerMap.put(playlist,userslist);
+//        public HashMap<User, Playlist> creatorPlaylistMap;
+        if(creatorPlaylistMap.get(curUser)!=playlist)
+            creatorPlaylistMap.put(curUser,playlist);
+//        public HashMap<User, List<Playlist>> userPlaylistMap;
+        List<Playlist>userplaylists = new ArrayList<>();
+        if(userPlaylistMap.containsKey(curUser)){
+            userplaylists=userPlaylistMap.get(curUser);
+        }
+        if(!userplaylists.contains(playlist))userplaylists.add(playlist);
+        userPlaylistMap.put(curUser,userplaylists);
 
 
         return playlist;
